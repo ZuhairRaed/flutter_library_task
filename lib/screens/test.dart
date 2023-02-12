@@ -1,42 +1,28 @@
 import 'dart:convert';
-
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_library_task/screens/technical_form_screen.dart';
-import 'package:flutter_library_task/screens/test.dart';
-import 'package:http/http.dart' as http;
+import 'package:flutter_library_task/models/tag.dart';
 import 'package:scrollable_list_tabview/scrollable_list_tabview.dart';
+import 'package:http/http.dart' as http;
 
-import '../models/tag.dart';
+void main() {
+  runApp(MyApp());
+}
 
-class LibraryScreen extends StatelessWidget {
-  const LibraryScreen({super.key});
-
+class MyApp extends StatelessWidget {
+  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('Library'),
-        actions: [
-          IconButton(
-            icon: const Icon(Icons.support_agent),
-            onPressed: () {
-              Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context) =>  MyApp()));
-            },
-          ),
-        ],
+    return MaterialApp(
+      title: 'Flutter Demo',
+      debugShowCheckedModeBanner: false,
+      theme: ThemeData(
+        visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
-      body: const Center(
-
-        
-      ),
+      home: MyHomePage(title: 'Library'),
     );
   }
 }
-
 
 class MyHomePage extends StatefulWidget {
   MyHomePage({Key? key, this.title = 'test'}) : super(key: key);
