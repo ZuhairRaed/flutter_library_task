@@ -44,10 +44,11 @@ class MyApp extends StatelessWidget {
               fontWeight: FontWeight.w500,
               // height: 30.0,
             )),
+
         colorScheme: ColorScheme.fromSwatch().copyWith(
           // background: Color(0xFFE0E0E0),
           background: Colors.white,
-          primary: Color(0xFF075995),
+          primary: const Color(0xFF075995),
         ),
       ),
       locale: const Locale('en'),

@@ -15,8 +15,8 @@ class TextFieldTitle extends StatelessWidget {
           title,
           style: const TextStyle(
             color: Color(0xff009BA6),
-            fontSize: 16,
-            fontWeight: FontWeight.w600,
+            fontSize: 16.0,
+            fontWeight: FontWeight.w500,
           ),
         ),
         const SizedBox(height: 2),

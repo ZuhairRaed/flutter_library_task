@@ -10,7 +10,7 @@ class PdfViewer extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       body: SfPdfViewer.network(
-          'https://www.orimi.com/pdf-test.pdf'),
+          fileUrl),
     );
   }
 }

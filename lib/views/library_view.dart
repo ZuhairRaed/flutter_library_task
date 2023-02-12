@@ -4,7 +4,7 @@ import 'package:flutter_library_task/views/pdf_viewer.dart';
 import 'package:provider/provider.dart';
 import '../models/library_data_model.dart';
 import '../models/library_tags_model.dart';
-import 'technical_form_screen.dart';
+import 'technical_form_view.dart';
 import 'package:intl/intl.dart';
 
 class LibraryView extends StatefulWidget {
@@ -43,7 +43,7 @@ class _LibraryViewState extends State<LibraryView> {
                   Navigator.push(
                       context,
                       MaterialPageRoute(
-                          builder: (context) => const TechnicalFormScreen()));
+                          builder: (context) =>  TechnicalFormView()));
                 },
               ),
             ],
@@ -78,6 +78,7 @@ class _LibraryViewState extends State<LibraryView> {
                                         color: theme.colorScheme.primary)
                                     : null,
                                 showCheckmark: false,
+                                selectedColor: const Color(0xFF009BA6),
                                 label: Text(
                                   tag.name!,
                                   style: TextStyle(
@@ -99,29 +100,48 @@ class _LibraryViewState extends State<LibraryView> {
                           },
                         ),
                       ),
-                      ListView.builder(
-                          shrinkWrap: true,
-                          physics: const NeverScrollableScrollPhysics(),
-                          itemCount: libraryDataByTag!.length,
-                          itemBuilder: (BuildContext context, int i) {
-                            LibraryDataModel libraryDataModel =
-                                libraryDataByTag[i];
-                            return ListTile(
-                              title: Text(libraryDataModel.name!),
-                              subtitle: Text(DateFormat('dd MMMM, yyyy').format(
-                                  DateTime.parse(libraryDataModel.createdAt!))),
-                              leading: Image.asset('assets/images/pdf.png'),
-                              onTap: () {
-                                Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                    builder: (_) => PdfViewer(
-                                        fileUrl: libraryDataModel.media!.url!),
-                                  ),
-                                );
-                              },
-                            );
-                          }),
+                      ListView.separated(
+                        shrinkWrap: true,
+                        physics: const NeverScrollableScrollPhysics(),
+                        itemCount: libraryDataByTag!.length,
+                        itemBuilder: (BuildContext context, int i) {
+                          LibraryDataModel libraryDataModel =
+                              libraryDataByTag[i];
+                          return ListTile(
+                            title: Text(
+                              libraryDataModel.name!,
+                              style: TextStyle(
+                                  fontSize: 19.0,
+                                  color: theme.colorScheme.primary),
+                            ),
+                            subtitle: Text(
+                              DateFormat('dd MMMM, yyyy').format(
+                                  DateTime.parse(libraryDataModel.createdAt!)),
+                              style: const TextStyle(
+                                color: Color(0xFF757575),
+                                fontSize: 16.0,
+                              ),
+                            ),
+                            leading: Image.asset('assets/images/pdf.png'),
+                            onTap: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (_) => PdfViewer(
+                                      fileUrl: libraryDataModel.media!.url!),
+                                ),
+                              );
+                            },
+                          );
+                        },
+                        separatorBuilder: (_, __) {
+                          return const Divider(
+                            indent: 16.0,
+                            endIndent: 16.0,
+                            color: Color(0xFFEBEBEB),
+                          );
+                        },
+                      ),
                     ],
                   ),
                 )
