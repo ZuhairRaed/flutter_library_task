@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_library_task/views/home_screen.dart';
 import 'package:flutter_library_task/widgets/text_field_title.dart';
 
 class TechnicalFormView extends StatelessWidget {
@@ -139,7 +140,9 @@ class TechnicalFormView extends StatelessWidget {
                         backgroundColor: const Color(0xFF1F2F49),
                         shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(5))),
-                    onPressed: () {},
+                    onPressed: () {
+                      Navigator.push(context, MaterialPageRoute(builder: (_) => const HomeScreen(yourName: 'Osama Assaf',)));
+                    },
                     child: const Text(
                       'Submit',
                       style: TextStyle(

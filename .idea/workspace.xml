@@ -5,7 +5,6 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="58e0e5b6-0538-4978-b02f-c91f27b7b248" name="Changes" comment="Osama Assaf Commit">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lib/views/technical_form_view.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/views/technical_form_view.dart" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -92,7 +91,21 @@
       <option name="project" value="LOCAL" />
       <updated>1676194204503</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="Osama Assaf Commit">
+      <created>1676194319558</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1676194319558</updated>
+    </task>
+    <task id="LOCAL-00005" summary="Osama Assaf Commit">
+      <created>1676194450760</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1676194450760</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
