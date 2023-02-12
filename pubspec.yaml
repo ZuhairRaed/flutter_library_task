@@ -26,6 +26,9 @@ dependencies:
   pin_code_fields: ^7.4.0
   confetti: ^0.7.0
   dio: ^4.0.6
+  provider: ^6.0.5
+  intl: ^0.17.0
+  syncfusion_flutter_pdfviewer: ^20.4.49
 
 dev_dependencies:
   flutter_test:
@@ -37,8 +40,8 @@ flutter:
   uses-material-design: true
   assets:
     - assets/images/
-    - assets/animation/
-    - assets/svgs/
+#    - assets/animation/
+#    - assets/svgs/
 
   fonts:
     - family: Poppins
