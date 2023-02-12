@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_library_task/widgets/text_field_title.dart';
 
+import 'home_screen.dart';
+
 class TechnicalFormScreen extends StatelessWidget {
   const TechnicalFormScreen({super.key});
 
@@ -35,8 +37,20 @@ class TechnicalFormScreen extends StatelessWidget {
               ),
             ),
             const SizedBox(height: 16),
+            ElevatedButton(
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => HomeScreen(yourName: 'moath',)),
+                );
+                // Your code here
+              },
+              child: Text('Submit'),
+            )
           ],
+
         ),
+
       ),
     );
   }

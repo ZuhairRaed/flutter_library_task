@@ -15,6 +15,7 @@ class LibraryScreen extends StatelessWidget {
         )),
         actions: [
           IconButton(
+            color: Colors.blue,
             icon: const Icon(Icons.support_agent),
             onPressed: () {
               Navigator.push(
