@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_library_task/screens/technical_form_screen.dart';
+import 'package:scrollable_list_tabview/scrollable_list_tabview.dart';
 
 class LibraryScreen extends StatelessWidget {
   const LibraryScreen({super.key});
@@ -21,8 +22,66 @@ class LibraryScreen extends StatelessWidget {
           ),
         ],
       ),
-      body: const Center(
-        child: Text('Your Design Here'),
+      body: ScrollableListTabView(
+        tabHeight: 48,
+        tabs: [
+          ScrollableListTab(
+              tab: ListTab(label: Text('Label 1'), icon: Icon(Icons.group)),
+              body: ListView.builder(
+                shrinkWrap: true,
+                physics: NeverScrollableScrollPhysics(),
+                itemCount: 10,
+                itemBuilder: (_, index) => ListTile(
+                  leading: Container(
+                    height: 40,
+                    width: 40,
+                    decoration: BoxDecoration(
+                        shape: BoxShape.circle, color: Colors.grey),
+                    alignment: Alignment.center,
+                    child: Text(index.toString()),
+                  ),
+                  title: Text('List element $index'),
+                ),
+              )),
+
+          ScrollableListTab(
+              tab: ListTab(label: Text('Label 2'), icon: Icon(Icons.group)),
+              body: ListView.builder(
+                shrinkWrap: true,
+                physics: NeverScrollableScrollPhysics(),
+                itemCount: 10,
+                itemBuilder: (_, index) => ListTile(
+                  leading: Container(
+                    height: 40,
+                    width: 40,
+                    decoration: BoxDecoration(
+                        shape: BoxShape.circle, color: Colors.grey),
+                    alignment: Alignment.center,
+                    child: Text(index.toString()),
+                  ),
+                  title: Text('List element $index'),
+                ),
+              )),
+
+          ScrollableListTab(
+              tab: ListTab(label: Text('Label 3'), icon: Icon(Icons.group)),
+              body: ListView.builder(
+                shrinkWrap: true,
+                physics: NeverScrollableScrollPhysics(),
+                itemCount: 10,
+                itemBuilder: (_, index) => ListTile(
+                  leading: Container(
+                    height: 40,
+                    width: 40,
+                    decoration: BoxDecoration(
+                        shape: BoxShape.circle, color: Colors.grey),
+                    alignment: Alignment.center,
+                    child: Text(index.toString()),
+                  ),
+                  title: Text('List element $index'),
+                ),
+              )),
+        ],
       ),
     );
   }
