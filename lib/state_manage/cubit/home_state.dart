@@ -10,19 +10,18 @@ abstract class HomeState extends Equatable {
 
 class HomeInitial extends HomeState {}
 
-class HomeTagSuccess extends HomeState {
-  final List<TagModel> data;
-  HomeTagSuccess({
+class HomeLibarySuccess extends HomeState {
+  final List<LibraryModel> data;
+  const HomeLibarySuccess({
     required this.data,
   });
 }
 
-class HomeTagLoading extends HomeState {}
-
-class HomeTagField extends HomeState {}
-
-class HomeLibarySuccess extends HomeState {}
-
 class HomeLibaryLoading extends HomeState {}
 
-class HomeLibaryField extends HomeState {}
+class HomeLibaryField extends HomeState {
+  final String errMasege;
+  HomeLibaryField({
+    required this.errMasege,
+  });
+}
