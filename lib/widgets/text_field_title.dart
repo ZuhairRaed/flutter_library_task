@@ -17,6 +17,7 @@ class TextFieldTitle extends StatelessWidget {
             color: Color(0xff009BA6),
             fontSize: 16,
             fontWeight: FontWeight.w600,
+            fontFamily: "Poppins"
           ),
         ),
         const SizedBox(height: 2),
