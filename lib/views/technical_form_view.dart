@@ -169,7 +169,19 @@ class TechnicalFormView extends StatelessWidget {
                 ),
                 const SizedBox(height: 64),
 
-                FilledButton(onPressed: (){}, child: Text('Submit'),),
+                Center(child: FilledButton(
+                  style: FilledButton.styleFrom(
+                    fixedSize: const Size(188.0, 45.0),
+                    backgroundColor: const Color(0xFF1F2F49),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(5)
+                    )
+                  ),
+                  onPressed: (){}, child: const Text('Submit',style: TextStyle(
+                  fontSize: 14.0,
+                  fontWeight: FontWeight.w500,
+                ),),),
+                ),
               ],
             ),
           ),
