@@ -9,7 +9,10 @@ class LibraryScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Library'),
+        backgroundColor:Colors.white,
+        title: const Text('Library', style: TextStyle(
+            color: Colors.blue
+        )),
         actions: [
           IconButton(
             icon: const Icon(Icons.support_agent),
@@ -26,7 +29,7 @@ class LibraryScreen extends StatelessWidget {
         tabHeight: 48,
         tabs: [
           ScrollableListTab(
-              tab: ListTab(label: Text('Label 1'), icon: Icon(Icons.group)),
+              tab: ListTab(label: Text('Label 1')),
               body: ListView.builder(
                 shrinkWrap: true,
                 physics: NeverScrollableScrollPhysics(),
@@ -45,7 +48,7 @@ class LibraryScreen extends StatelessWidget {
               )),
 
           ScrollableListTab(
-              tab: ListTab(label: Text('Label 2'), icon: Icon(Icons.group)),
+              tab: ListTab(label: Text('Label 2')),
               body: ListView.builder(
                 shrinkWrap: true,
                 physics: NeverScrollableScrollPhysics(),
@@ -64,7 +67,7 @@ class LibraryScreen extends StatelessWidget {
               )),
 
           ScrollableListTab(
-              tab: ListTab(label: Text('Label 3'), icon: Icon(Icons.group)),
+              tab: ListTab(label: Text('Label 3')),
               body: ListView.builder(
                 shrinkWrap: true,
                 physics: NeverScrollableScrollPhysics(),
