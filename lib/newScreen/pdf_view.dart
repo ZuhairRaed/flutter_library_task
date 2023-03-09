@@ -22,7 +22,7 @@ class _PdfViewState extends State<PdfView> {
           initialZoomLevel: 0,
         ),
       ),
-      floatingActionButton: Container(
+      floatingActionButton: SizedBox(
         width: 45,
         height: 45,
         child: FloatingActionButton(

@@ -169,7 +169,7 @@ class _TechnicalFormViewState extends State<TechnicalFormView> {
                       isExpanded: true,
                       onChanged: (String? value) {},
                       decoration: InputDecoration(
-                        hintText: 'Please enter your email here',
+                        hintText: 'Select the issue topic',
                         hintStyle: const TextStyle(
                           fontSize: 14.0,
                           fontWeight: FontWeight.w500,
