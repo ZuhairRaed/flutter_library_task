@@ -22,21 +22,25 @@ class _PdfViewState extends State<PdfView> {
           initialZoomLevel: 0,
         ),
       ),
-      floatingActionButton: FloatingActionButton(
-        elevation: 50,
-        onPressed: () {
-          Navigator.pop(context);
-        },
-        child: Container(
-          decoration: const BoxDecoration(
-            color: Colors.white,
-            shape: BoxShape.circle,
-          ),
-          child: const Center(
-            child: Icon(
-              Icons.arrow_back,
-              color: Color(0xFF075995),
-              size: 35,
+      floatingActionButton: Container(
+        width: 45,
+        height: 45,
+        child: FloatingActionButton(
+          elevation: 50,
+          onPressed: () {
+            Navigator.pop(context);
+          },
+          child: Container(
+            decoration: const BoxDecoration(
+              color: Colors.white,
+              shape: BoxShape.circle,
+            ),
+            child: const Center(
+              child: Icon(
+                Icons.arrow_back_ios_new_outlined,
+                color: Color(0xFF075995),
+                size: 25,
+              ),
             ),
           ),
         ),

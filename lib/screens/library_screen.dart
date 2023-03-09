@@ -65,14 +65,14 @@ class _LibraryScreenState extends State<LibraryScreen> {
                 child: Column(
                   children: [
                     const SizedBox(
-                      height: 45,
+                      height: 41,
                     ),
                     Row(
                       children: [
                         Container(
                           padding: const EdgeInsets.only(
                             right: 150,
-                            left: 50,
+                            left: 45,
                           ),
                           child: const Text(
                             "Library",
@@ -83,7 +83,7 @@ class _LibraryScreenState extends State<LibraryScreen> {
                           ),
                         ),
                         const SizedBox(
-                          width: 30,
+                          width: 31,
                         ),
                         IconButton(
                             onPressed: () {
@@ -208,6 +208,10 @@ class _LibraryScreenState extends State<LibraryScreen> {
                                                     ? 'assets/images/video.png'
                                                     : 'assets/images/doc.png',
                                           )),
+                                      const Divider(
+                                        thickness: 1,
+                                        color: Color(0xFFEBEBEB),
+                                      )
                                     ],
                                   ),
                                 );
