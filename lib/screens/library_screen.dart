@@ -79,7 +79,7 @@ class _LibraryScreenState extends State<LibraryScreen> {
                             style: TextStyle(
                                 fontFamily: "Poppins",
                                 fontSize: 25,
-                                color: const Color(0xff009BA6)),
+                                color: Color(0xff009BA6)),
                           ),
                         ),
                         const SizedBox(
@@ -122,6 +122,7 @@ class _LibraryScreenState extends State<LibraryScreen> {
                                       width: 2,
                                       color: const Color(0xff009BA6))),
                               child: MaterialButton(
+                                highlightColor: Colors.transparent,
                                 onPressed: () {
                                   onContainerTapped(index);
                                   ref
@@ -183,7 +184,7 @@ class _LibraryScreenState extends State<LibraryScreen> {
                                             style: const TextStyle(
                                                 fontFamily: "Poppins",
                                                 fontSize: 19,
-                                                color: Color(0xfff075995)),
+                                                color: Color(0xFF075995)),
                                           ),
                                           subtitle: Text(
                                             DateFormat('dd MMMM, yyyy').format(
@@ -192,7 +193,7 @@ class _LibraryScreenState extends State<LibraryScreen> {
                                             style: const TextStyle(
                                                 fontFamily: "Poppins",
                                                 fontSize: 14,
-                                                color: Color(0xfff757575)),
+                                                color: Color(0xFF757575)),
                                           ),
                                           leading: Image.asset(
                                             asyncLibraryList[index]

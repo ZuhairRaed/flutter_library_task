@@ -15,8 +15,12 @@ class _PdfViewState extends State<PdfView> {
     return Scaffold(
       body: Container(
         padding: const EdgeInsets.only(top: 25),
-        child: SfPdfViewer.network(widget.path,
-            initialScrollOffset: const Offset(0, 500)),
+        child: SfPdfViewer.network(
+          widget.path,
+          pageSpacing: 5,
+          initialScrollOffset: const Offset(0, 500),
+          initialZoomLevel: 0,
+        ),
       ),
       floatingActionButton: FloatingActionButton(
         elevation: 50,

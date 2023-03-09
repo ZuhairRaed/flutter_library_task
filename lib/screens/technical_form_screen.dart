@@ -167,11 +167,7 @@ class _TechnicalFormViewState extends State<TechnicalFormView> {
                     const SizedBox(height: 8.0),
                     DropdownButtonFormField(
                       isExpanded: true,
-                      onChanged: (String? value) {
-                        setState(() {
-                          isseTopic = value ?? '';
-                        });
-                      },
+                      onChanged: (String? value) {},
                       decoration: InputDecoration(
                         hintText: 'Please enter your email here',
                         hintStyle: const TextStyle(
@@ -198,11 +194,14 @@ class _TechnicalFormViewState extends State<TechnicalFormView> {
                           child: Text(item),
                         );
                       }).toList(),
-                      validator: (value) {
-                        if (value == null || value.isEmpty) {
+                      validator: (index) {
+                        if (index == null || index.isEmpty) {
                           return 'Please select an item';
                         }
                         return null;
+                      },
+                      onSaved: (newValue) {
+                        isseTopic = newValue ?? '';
                       },
                     ),
                     const SizedBox(height: 16.0),
@@ -263,15 +262,19 @@ class _TechnicalFormViewState extends State<TechnicalFormView> {
                               : const AsyncValue<bool>.error(
                                   'Failed to post data');
                           // ============ validator ============= //
+                          var formdata = formKey.currentState;
+
                           if (formKey.currentState!.validate()) {
-                            var filePath = ref.watch(nameProvider);
-                            filePath = name;
+                            formdata?.save();
+
+                            var namePath = ref.watch(nameProvider);
+                            namePath = name;
                             // ignore: use_build_context_synchronously
                             Navigator.push(
                               context,
                               MaterialPageRoute(
                                   builder: (_) => HomeScreen(
-                                        yourName: filePath,
+                                        yourName: namePath,
                                       )),
                             );
 
@@ -305,7 +308,8 @@ class _TechnicalFormViewState extends State<TechnicalFormView> {
                     // ==== To Show Error If there is Problem ====== //
                     postState.when(
                       loading: () => const CircularProgressIndicator(),
-                      error: (error, stackTrace) => Text('Error: $error'),
+                      error: (error, stackTrace) =>
+                          const Center(child: Text('')),
                       data: (success) =>
                           Text(success ? 'Data posted successfully' : ''),
                     ),
