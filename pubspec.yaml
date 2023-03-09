@@ -16,8 +16,6 @@ dependencies:
   cupertino_icons: ^1.0.2
   flutter_hooks: ^0.18.5+1
   hooks_riverpod: ^1.0.0
-  flutter_localizations:
-    sdk: flutter
   shared_preferences: ^2.0.17
   google_fonts: ^4.0.3
   sprintf: ^7.0.0
@@ -26,6 +24,12 @@ dependencies:
   pin_code_fields: ^7.4.0
   confetti: ^0.7.0
   dio: ^4.0.6
+  http: ^0.13.5
+  intl: ^0.18.0
+  syncfusion_flutter_pdfviewer: ^20.4.53
+  path_provider: ^2.0.13
+
+
 
 dev_dependencies:
   flutter_test:

@@ -16,6 +16,7 @@ class MyApp extends StatelessWidget {
     return Consumer(
       builder: (context, ref, child) {
         return const MaterialApp(
+          debugShowCheckedModeBanner: false,
           themeMode: ThemeMode.light,
           locale: Locale('en'),
           home: LibraryScreen(),
