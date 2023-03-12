@@ -19,7 +19,8 @@ class ApiServices {
   }
 }
 
-final tagsProvider = Provider<ApiServices>((ref) => ApiServices());
+Provider<ApiServices> tagsProvider =
+    Provider<ApiServices>((ref) => ApiServices());
 
 class ApiServicesLibrary {
   String endpoint = 'https://development.himam.com/api/library';
@@ -35,5 +36,5 @@ class ApiServicesLibrary {
   }
 }
 
-final libraryProvider =
+Provider<ApiServicesLibrary> libraryProvider =
     Provider<ApiServicesLibrary>((ref) => ApiServicesLibrary());

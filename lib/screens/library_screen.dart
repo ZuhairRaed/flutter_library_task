@@ -29,13 +29,14 @@ class LibraryScreen extends StatefulWidget {
 class _LibraryScreenState extends State<LibraryScreen> {
 //=============== Filter the items ===============//
 
-  final filteredItemsProvider = Provider.family<List<Library>, int>((ref, id) {
-    final items = ref.watch(libraryDataProvider).value ?? [];
+  ProviderFamily<List<Library>, int> filteredItemsProvider =
+      Provider.family<List<Library>, int>((ref, id) {
+    List<Library> items = ref.watch(libraryDataProvider).value ?? [];
     return items.where((item) => item.tagId == id).toList();
   });
 
-  final selectedListProvider = StateProvider<int>((ref) => 1);
-  final getUrlProvider = StateProvider<String>((ref) => '');
+  StateProvider<int> selectedListProvider = StateProvider<int>((ref) => 1);
+  StateProvider<String> getUrlProvider = StateProvider<String>((ref) => '');
 
 //========= selected container ==========//
 

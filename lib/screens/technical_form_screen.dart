@@ -13,6 +13,7 @@ class TechnicalFormView extends StatefulWidget {
 }
 
 class _TechnicalFormViewState extends State<TechnicalFormView> {
+  //--------------// ===  Form key  === //----------------//
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
   // ==== Variabel to set state ===== //
   String name = '';
@@ -220,7 +221,7 @@ class _TechnicalFormViewState extends State<TechnicalFormView> {
                                 const BorderSide(color: Color(0xFF757575))),
                       ),
                     ),
-                    const SizedBox(height: 76.05),
+                    const SizedBox(height: 76),
                     Center(
                       child: FilledButton(
                         style: FilledButton.styleFrom(
