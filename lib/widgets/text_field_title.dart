@@ -14,10 +14,10 @@ class TextFieldTitle extends StatelessWidget {
         Text(
           title,
           style: const TextStyle(
-            color: Color(0xff009BA6),
-            fontSize: 16,
-            fontWeight: FontWeight.w600,
-          ),
+              color: Color(0xff009BA6),
+              fontSize: 16,
+              fontWeight: FontWeight.w500,
+              fontFamily: "Poppins"),
         ),
         const SizedBox(height: 2),
       ],

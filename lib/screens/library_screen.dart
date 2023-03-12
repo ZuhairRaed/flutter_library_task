@@ -97,9 +97,7 @@ class _LibraryScreenState extends State<LibraryScreen> {
                             },
                             icon: const Icon(
                               Icons.headset_mic_rounded,
-                              color: Color(
-                                0xff075995,
-                              ),
+                              color: Color(0xff009BA6),
                             ))
                       ],
                     ),

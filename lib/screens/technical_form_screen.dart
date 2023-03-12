@@ -219,7 +219,7 @@ class _TechnicalFormViewState extends State<TechnicalFormView> {
                                 const BorderSide(color: Color(0xFF757575))),
                       ),
                     ),
-                    const SizedBox(height: 64),
+                    const SizedBox(height: 76.05),
                     Center(
                       child: FilledButton(
                         style: FilledButton.styleFrom(
@@ -244,7 +244,7 @@ class _TechnicalFormViewState extends State<TechnicalFormView> {
                             // ignore: use_build_context_synchronously
                             ScaffoldMessenger.of(context).showSnackBar(
                                 const SnackBar(
-                                    backgroundColor: const Color(0xFF075995),
+                                    backgroundColor: Color(0xFF075995),
                                     content: Center(
                                         child: Text(
                                             'Processing Data , Please Wait .....'))));
@@ -274,10 +274,9 @@ class _TechnicalFormViewState extends State<TechnicalFormView> {
                               ),
                             );
                           } else {
-                            // Form is not valid, but we can still save the data
                             formKey.currentState?.save();
                           }
-                          // ============ validator ============= //
+                          // ============ Validator End ============= //
                         },
                         child: const Text(
                           'Submit',
