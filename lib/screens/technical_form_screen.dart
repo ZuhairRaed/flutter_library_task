@@ -15,6 +15,7 @@ class TechnicalFormView extends StatefulWidget {
 class _TechnicalFormViewState extends State<TechnicalFormView> {
   //--------------// ===  Form key  === //----------------//
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
+  bool isSending = false;
   // ==== Variabel to set state ===== //
   String name = '';
   String email = '';
@@ -95,8 +96,7 @@ class _TechnicalFormViewState extends State<TechnicalFormView> {
                       },
                       controller: nameController,
                       decoration: InputDecoration(
-                        contentPadding:
-                            const EdgeInsets.symmetric(horizontal: 3),
+                        contentPadding: const EdgeInsets.all(10),
                         hintText: ' Please enter your name here',
                         hintStyle: const TextStyle(
                           fontSize: 14.0,
@@ -132,8 +132,7 @@ class _TechnicalFormViewState extends State<TechnicalFormView> {
                       },
                       controller: emailController,
                       decoration: InputDecoration(
-                        contentPadding:
-                            const EdgeInsets.symmetric(horizontal: 3),
+                        contentPadding: const EdgeInsets.all(10),
                         hintText: ' Please enter your email here',
                         hintStyle: const TextStyle(
                           fontSize: 14.0,
@@ -223,72 +222,64 @@ class _TechnicalFormViewState extends State<TechnicalFormView> {
                     ),
                     const SizedBox(height: 76),
                     Center(
-                      child: FilledButton(
-                        style: FilledButton.styleFrom(
-                            fixedSize: const Size(188.0, 45.0),
-                            backgroundColor: const Color(0xFF1F2F49),
-                            shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(5))),
-                        onPressed: () async {
-                          if (formKey.currentState!.validate()) {
-                            // =======       Send Data to API       ======= //
-                            final api = ref.read(apiProvider);
-                            final success = await api(
-                                nameController.text,
-                                emailController.text,
-                                isseTopics,
-                                issueDetailesController.text);
-                            ref.read(postStateProvider.notifier).state = success
-                                ? const AsyncValue<bool>.data(true)
-                                : const AsyncValue<bool>.error(
-                                    'Failed to post data');
+                      child: isSending
+                          ? const Center(child: CircularProgressIndicator())
+                          : FilledButton(
+                              style: FilledButton.styleFrom(
+                                  fixedSize: const Size(188.0, 45.0),
+                                  backgroundColor: const Color(0xFF1F2F49),
+                                  shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(5))),
+                              onPressed: () async {
+                                if (formKey.currentState!.validate()) {
+                                  // =======       Send Data to API       ======= //
+                                  setState(() {
+                                    isSending = true;
+                                  });
+                                  final api = ref.read(apiProvider);
+                                  bool success = await api(
+                                      nameController.text,
+                                      emailController.text,
+                                      isseTopics,
+                                      issueDetailesController.text);
+                                  ref.read(postStateProvider.notifier).state =
+                                      success
+                                          ? const AsyncValue<bool>.data(true)
+                                          : const AsyncValue<bool>.error(
+                                              'Failed to post data');
 
-                            // ignore: use_build_context_synchronously
-                            ScaffoldMessenger.of(context).showSnackBar(
-                                const SnackBar(
-                                    backgroundColor: Color(0xFF075995),
-                                    content: Center(
-                                        child: Text(
-                                            'Processing Data , Please Wait .....'))));
-                            String namePath = ref.watch(nameProvider);
-                            namePath = nameController.text;
-                            // ignore: use_build_context_synchronously
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (_) => HomeScreen(
-                                        yourName: namePath,
-                                      )),
-                            );
-
-                            // ============= SnakBar To Notify The User That The Data Sended ========== //
-
-                            // ignore: use_build_context_synchronously
-                            ScaffoldMessenger.of(context).showSnackBar(
-                              SnackBar(
-                                backgroundColor: const Color(0xFF075995),
-                                content: Center(
-                                  child: Text(
-                                    ''' Hi  $namePath  Thank You Your Form Is Submited''',
-                                    style: const TextStyle(color: Colors.white),
-                                  ),
+                                  // ignore: use_build_context_synchronously
+                                  ScaffoldMessenger.of(context).showSnackBar(
+                                      const SnackBar(
+                                          backgroundColor: Color(0xFF075995),
+                                          content: Center(
+                                              child: Text(
+                                                  "Your From Is Submitted"))));
+                                  String namePath = ref.watch(nameProvider);
+                                  namePath = nameController.text;
+                                  // ignore: use_build_context_synchronously
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (_) => HomeScreen(
+                                              yourName: namePath,
+                                            )),
+                                  );
+                                  // ============= SnakBar To Notify The User That The Data Sended ========== //
+                                } else {
+                                  formKey.currentState?.save();
+                                }
+                                // ============ Validator End ============= //
+                              },
+                              child: const Text(
+                                'Submit',
+                                style: TextStyle(
+                                  fontFamily: 'Poppins',
+                                  fontSize: 14.0,
+                                  fontWeight: FontWeight.w500,
                                 ),
                               ),
-                            );
-                          } else {
-                            formKey.currentState?.save();
-                          }
-                          // ============ Validator End ============= //
-                        },
-                        child: const Text(
-                          'Submit',
-                          style: TextStyle(
-                            fontFamily: 'Poppins',
-                            fontSize: 14.0,
-                            fontWeight: FontWeight.w500,
-                          ),
-                        ),
-                      ),
+                            ),
                     ),
 
                     // ==== To Show Error If there is Problem ====== //
