@@ -64,6 +64,9 @@ class _TechnicalFormViewState extends State<TechnicalFormView> {
         leading: IconButton(
           onPressed: () {
             Navigator.pop(context);
+            setState(() {
+              isSending = false;
+            });
           },
           icon: const Icon(Icons.arrow_back),
         ),
@@ -78,153 +81,153 @@ class _TechnicalFormViewState extends State<TechnicalFormView> {
           // ===   Get Provider to return sucess message === //
           final postState = ref.watch(postStateProvider);
 
-          return Form(
-            autovalidateMode: AutovalidateMode.always,
-            key: formKey,
-            child: Padding(
-              padding: const EdgeInsets.all(16),
-              child: SingleChildScrollView(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    const TextFieldTitle(title: 'Name'),
-                    const SizedBox(height: 8.0),
-                    TextFormField(
-                      validator: FormBuilderValidators.required(),
-                      onChanged: (newValue) {
-                        name = newValue;
-                      },
-                      controller: nameController,
-                      decoration: InputDecoration(
-                        contentPadding: const EdgeInsets.all(10),
-                        hintText: ' Please enter your name here',
-                        hintStyle: const TextStyle(
-                          fontSize: 14.0,
-                          fontWeight: FontWeight.w500,
-                          color: Color(0xffB7B7B7),
-                        ),
-                        border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(4.0),
-                            borderSide:
-                                const BorderSide(color: Color(0xFF757575))),
-                        enabledBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(4.0),
-                            borderSide:
-                                const BorderSide(color: Color(0xFF757575))),
-                        focusedBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(4.0),
-                            borderSide:
-                                const BorderSide(color: Color(0xFF757575))),
-                      ),
-                    ),
-                    const SizedBox(height: 16.0),
-                    const TextFieldTitle(title: 'Email'),
-                    const SizedBox(height: 8.0),
-                    TextFormField(
-                      keyboardType: TextInputType.emailAddress,
-                      validator: FormBuilderValidators.compose([
-                        FormBuilderValidators.required(),
-                        FormBuilderValidators.email(
-                            errorText: "Please Enter Valid Email")
-                      ]),
-                      onChanged: (value) {
-                        email = value;
-                      },
-                      controller: emailController,
-                      decoration: InputDecoration(
-                        contentPadding: const EdgeInsets.all(10),
-                        hintText: ' Please enter your email here',
-                        hintStyle: const TextStyle(
-                          fontSize: 14.0,
-                          fontWeight: FontWeight.w500,
-                          color: Color(0xffB7B7B7),
-                        ),
-                        border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(4.0),
-                            borderSide:
-                                const BorderSide(color: Color(0xFF757575))),
-                        enabledBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(4.0),
-                            borderSide:
-                                const BorderSide(color: Color(0xFF757575))),
-                        focusedBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(4.0),
-                            borderSide:
-                                const BorderSide(color: Color(0xFF757575))),
-                      ),
-                    ),
-                    const SizedBox(height: 16.0),
-                    const TextFieldTitle(title: 'Issue Topic'),
-                    const SizedBox(height: 8.0),
-                    DropdownButtonFormField(
-                      isExpanded: true,
-                      validator: FormBuilderValidators.required(),
-                      onChanged: (String? value) {
-                        isseTopics = value!;
-                      },
-                      decoration: InputDecoration(
-                        contentPadding:
-                            const EdgeInsets.symmetric(horizontal: 3),
-                        hintText: ' Select the issue topic',
-                        hintStyle: const TextStyle(
-                          fontSize: 14.0,
-                          fontWeight: FontWeight.w500,
-                          color: Color(0xffB7B7B7),
-                        ),
-                        border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(4.0),
-                            borderSide:
-                                const BorderSide(color: Color(0xFF757575))),
-                        enabledBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(4.0),
-                            borderSide:
-                                const BorderSide(color: Color(0xFF757575))),
-                        focusedBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(4.0),
-                            borderSide:
-                                const BorderSide(color: Color(0xFF757575))),
-                      ),
-                      items: items.map((item) {
-                        return DropdownMenuItem(
-                          value: item,
-                          child: Text(item),
-                        );
-                      }).toList(),
-                    ),
-                    const SizedBox(height: 16.0),
-                    const SizedBox(height: 16),
-                    const TextFieldTitle(title: 'Issue Description'),
-                    TextFormField(
-                      validator: FormBuilderValidators.required(),
-                      controller: issueDetailesController,
-                      minLines: 5,
-                      maxLines: 10,
-                      decoration: InputDecoration(
-                        hintText: ' Please tell us about your problem',
-                        hintStyle: const TextStyle(
-                          fontSize: 14.0,
-                          fontWeight: FontWeight.w500,
-                          color: Color(0xffB7B7B7),
-                        ),
-                        border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(4.0),
-                            borderSide:
-                                const BorderSide(color: Color(0xFF757575))),
-                        enabledBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(4.0),
-                            borderSide:
-                                const BorderSide(color: Color(0xFF757575))),
-                        focusedBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(4.0),
-                            borderSide:
-                                const BorderSide(color: Color(0xFF757575))),
-                      ),
-                    ),
-                    const SizedBox(height: 76),
-                    Center(
-                      child: isSending
-                          ? const Center(child: CircularProgressIndicator())
-                          : FilledButton(
+          return isSending
+              ? const Center(child: CircularProgressIndicator())
+              : Form(
+                  autovalidateMode: AutovalidateMode.always,
+                  key: formKey,
+                  child: Padding(
+                    padding: const EdgeInsets.all(16),
+                    child: SingleChildScrollView(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          const TextFieldTitle(title: 'Name'),
+                          const SizedBox(height: 8.0),
+                          TextFormField(
+                            validator: FormBuilderValidators.required(),
+                            onChanged: (newValue) {
+                              name = newValue;
+                            },
+                            controller: nameController,
+                            decoration: InputDecoration(
+                              contentPadding: const EdgeInsets.all(10),
+                              hintText: ' Please enter your name here',
+                              hintStyle: const TextStyle(
+                                fontSize: 14.0,
+                                fontWeight: FontWeight.w500,
+                                color: Color(0xffB7B7B7),
+                              ),
+                              border: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(4.0),
+                                  borderSide: const BorderSide(
+                                      color: Color(0xFF757575))),
+                              enabledBorder: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(4.0),
+                                  borderSide: const BorderSide(
+                                      color: Color(0xFF757575))),
+                              focusedBorder: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(4.0),
+                                  borderSide: const BorderSide(
+                                      color: Color(0xFF757575))),
+                            ),
+                          ),
+                          const SizedBox(height: 16.0),
+                          const TextFieldTitle(title: 'Email'),
+                          const SizedBox(height: 8.0),
+                          TextFormField(
+                            keyboardType: TextInputType.emailAddress,
+                            validator: FormBuilderValidators.compose([
+                              FormBuilderValidators.required(),
+                              FormBuilderValidators.email(
+                                  errorText: "Please Enter Valid Email")
+                            ]),
+                            onChanged: (value) {
+                              email = value;
+                            },
+                            controller: emailController,
+                            decoration: InputDecoration(
+                              contentPadding: const EdgeInsets.all(10),
+                              hintText: ' Please enter your email here',
+                              hintStyle: const TextStyle(
+                                fontSize: 14.0,
+                                fontWeight: FontWeight.w500,
+                                color: Color(0xffB7B7B7),
+                              ),
+                              border: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(4.0),
+                                  borderSide: const BorderSide(
+                                      color: Color(0xFF757575))),
+                              enabledBorder: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(4.0),
+                                  borderSide: const BorderSide(
+                                      color: Color(0xFF757575))),
+                              focusedBorder: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(4.0),
+                                  borderSide: const BorderSide(
+                                      color: Color(0xFF757575))),
+                            ),
+                          ),
+                          const SizedBox(height: 16.0),
+                          const TextFieldTitle(title: 'Issue Topic'),
+                          const SizedBox(height: 8.0),
+                          DropdownButtonFormField(
+                            isExpanded: true,
+                            validator: FormBuilderValidators.required(),
+                            onChanged: (String? value) {
+                              isseTopics = value!;
+                            },
+                            decoration: InputDecoration(
+                              contentPadding:
+                                  const EdgeInsets.symmetric(horizontal: 3),
+                              hintText: ' Select the issue topic',
+                              hintStyle: const TextStyle(
+                                fontSize: 14.0,
+                                fontWeight: FontWeight.w500,
+                                color: Color(0xffB7B7B7),
+                              ),
+                              border: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(4.0),
+                                  borderSide: const BorderSide(
+                                      color: Color(0xFF757575))),
+                              enabledBorder: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(4.0),
+                                  borderSide: const BorderSide(
+                                      color: Color(0xFF757575))),
+                              focusedBorder: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(4.0),
+                                  borderSide: const BorderSide(
+                                      color: Color(0xFF757575))),
+                            ),
+                            items: items.map((item) {
+                              return DropdownMenuItem(
+                                value: item,
+                                child: Text(item),
+                              );
+                            }).toList(),
+                          ),
+                          const SizedBox(height: 16.0),
+                          const SizedBox(height: 16),
+                          const TextFieldTitle(title: 'Issue Description'),
+                          TextFormField(
+                            validator: FormBuilderValidators.required(),
+                            controller: issueDetailesController,
+                            minLines: 5,
+                            maxLines: 10,
+                            decoration: InputDecoration(
+                              hintText: ' Please tell us about your problem',
+                              hintStyle: const TextStyle(
+                                fontSize: 14.0,
+                                fontWeight: FontWeight.w500,
+                                color: Color(0xffB7B7B7),
+                              ),
+                              border: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(4.0),
+                                  borderSide: const BorderSide(
+                                      color: Color(0xFF757575))),
+                              enabledBorder: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(4.0),
+                                  borderSide: const BorderSide(
+                                      color: Color(0xFF757575))),
+                              focusedBorder: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(4.0),
+                                  borderSide: const BorderSide(
+                                      color: Color(0xFF757575))),
+                            ),
+                          ),
+                          const SizedBox(height: 76),
+                          Center(
+                            child: FilledButton(
                               style: FilledButton.styleFrom(
                                   fixedSize: const Size(188.0, 45.0),
                                   backgroundColor: const Color(0xFF1F2F49),
@@ -280,21 +283,21 @@ class _TechnicalFormViewState extends State<TechnicalFormView> {
                                 ),
                               ),
                             ),
-                    ),
+                          ),
 
-                    // ==== To Show Error If there is Problem ====== //
-                    postState.when(
-                      loading: () => const CircularProgressIndicator(),
-                      error: (error, stackTrace) =>
-                          const Center(child: Text('')),
-                      data: (success) =>
-                          Text(success ? 'Data posted successfully' : ''),
+                          // ==== To Show Error If there is Problem ====== //
+                          postState.when(
+                            loading: () => const CircularProgressIndicator(),
+                            error: (error, stackTrace) =>
+                                const Center(child: Text('')),
+                            data: (success) =>
+                                Text(success ? 'Data posted successfully' : ''),
+                          ),
+                        ],
+                      ),
                     ),
-                  ],
-                ),
-              ),
-            ),
-          );
+                  ),
+                );
         },
       ),
     );
