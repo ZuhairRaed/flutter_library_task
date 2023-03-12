@@ -77,6 +77,7 @@ class _TechnicalFormViewState extends State<TechnicalFormView> {
           final postState = ref.watch(postStateProvider);
 
           return Form(
+            autovalidateMode: AutovalidateMode.always,
             key: formKey,
             child: Padding(
               padding: const EdgeInsets.all(16),
