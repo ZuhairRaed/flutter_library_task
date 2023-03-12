@@ -3,16 +3,19 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:http/http.dart' as http;
+// ignore: depend_on_referenced_packages
+import 'package:intl/intl.dart';
+import 'package:url_launcher/url_launcher.dart';
+
 import 'package:flutter_library_task/api/services.dart';
 import 'package:flutter_library_task/api/services_modle.dart';
 import 'package:flutter_library_task/newScreen/pdf_view.dart';
 import 'package:flutter_library_task/screens/technical_form_screen.dart';
 import 'package:flutter_library_task/variabels/library.dart';
 import 'package:flutter_library_task/variabels/tags.dart';
-import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:http/http.dart' as http;
-import 'package:intl/intl.dart';
-import 'package:url_launcher/url_launcher.dart';
+
 import 'home_screen.dart';
 
 class LibraryScreen extends StatefulWidget {
@@ -110,34 +113,41 @@ class _LibraryScreenState extends State<LibraryScreen> {
                           scrollDirection: Axis.horizontal,
                           itemCount: tagsData.length,
                           itemBuilder: (context, index) {
-                            return Container(
-                              margin: const EdgeInsets.all(4),
-                              padding: const EdgeInsets.symmetric(
-                                  horizontal: 16, vertical: 10),
-                              decoration: BoxDecoration(
-                                  color: selectedContainer == index
-                                      ? const Color(0xff009BA6)
-                                      : Colors.transparent,
-                                  borderRadius: BorderRadius.circular(35),
-                                  border: Border.all(
-                                      width: 2,
-                                      color: const Color(0xff009BA6))),
-                              child: MaterialButton(
-                                highlightColor: Colors.transparent,
-                                onPressed: () {
-                                  onContainerTapped(index);
-                                  ref
-                                      .read(selectedListProvider.notifier)
-                                      .state = tagsData[index].id!;
-                                },
-                                child: Text(
-                                  "${tagsData[index].name}",
-                                  style: TextStyle(
-                                    fontFamily: "Poppins",
-                                    fontSize: 14,
+                            return InkWell(
+                              onTap: () {
+                                onContainerTapped(index);
+                                ref.read(selectedListProvider.notifier).state =
+                                    tagsData[index].id!;
+                              },
+                              child: Container(
+                                margin: const EdgeInsets.all(4),
+                                padding: const EdgeInsets.symmetric(
+                                    horizontal: 16, vertical: 10),
+                                decoration: BoxDecoration(
                                     color: selectedContainer == index
-                                        ? const Color(0xffFFFFFF)
-                                        : const Color(0xff009BA6),
+                                        ? const Color(0xff009BA6)
+                                        : Colors.transparent,
+                                    borderRadius: BorderRadius.circular(35),
+                                    border: Border.all(
+                                        width: 2,
+                                        color: const Color(0xff009BA6))),
+                                child: MaterialButton(
+                                  highlightColor: Colors.transparent,
+                                  onPressed: () {
+                                    onContainerTapped(index);
+                                    ref
+                                        .read(selectedListProvider.notifier)
+                                        .state = tagsData[index].id!;
+                                  },
+                                  child: Text(
+                                    "${tagsData[index].name}",
+                                    style: TextStyle(
+                                      fontFamily: "Poppins",
+                                      fontSize: 14,
+                                      color: selectedContainer == index
+                                          ? const Color(0xffFFFFFF)
+                                          : const Color(0xff009BA6),
+                                    ),
                                   ),
                                 ),
                               ),

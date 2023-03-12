@@ -3,6 +3,7 @@ import 'package:flutter_library_task/widgets/text_field_title.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:http/http.dart' as http;
 import 'home_screen.dart';
+import 'package:form_builder_validators/form_builder_validators.dart';
 
 class TechnicalFormView extends StatefulWidget {
   const TechnicalFormView({super.key});
@@ -16,7 +17,7 @@ class _TechnicalFormViewState extends State<TechnicalFormView> {
   // ==== Variabel to set state ===== //
   String name = '';
   String email = '';
-  String isseTopic = '';
+  String isseTopics = '';
   String isseTopicDesc = '';
   //  ==== List of items === //
   List<String> items = [
@@ -86,18 +87,15 @@ class _TechnicalFormViewState extends State<TechnicalFormView> {
                     const TextFieldTitle(title: 'Name'),
                     const SizedBox(height: 8.0),
                     TextFormField(
-                      validator: (value) {
-                        if (value == null || value.isEmpty) {
-                          return 'Please enter your first name';
-                        }
-                        return null;
-                      },
-                      onChanged: (value) {
-                        name = value;
+                      validator: FormBuilderValidators.required(),
+                      onChanged: (newValue) {
+                        name = newValue;
                       },
                       controller: nameController,
                       decoration: InputDecoration(
-                        hintText: 'Please enter your name here',
+                        contentPadding:
+                            const EdgeInsets.symmetric(horizontal: 3),
+                        hintText: ' Please enter your name here',
                         hintStyle: const TextStyle(
                           fontSize: 14.0,
                           fontWeight: FontWeight.w500,
@@ -122,27 +120,19 @@ class _TechnicalFormViewState extends State<TechnicalFormView> {
                     const SizedBox(height: 8.0),
                     TextFormField(
                       keyboardType: TextInputType.emailAddress,
-                      validator: (value) {
-                        // ==== Email RegEXP==== //
-
-                        final emailRegExp =
-                            RegExp(r"^[a-zA-Z0-9.]+@[a-zA-Z0-9]+\.[a-zA-Z]+");
-
-                        if (value == null || value.isEmpty) {
-                          return 'Please enter your email address';
-                        }
-                        // ignore: unrelated_type_equality_checks
-                        if (value != emailRegExp) {
-                          return 'Please enter a valid email address';
-                        }
-                        return null;
-                      },
+                      validator: FormBuilderValidators.compose([
+                        FormBuilderValidators.required(),
+                        FormBuilderValidators.email(
+                            errorText: "Please Enter Valid Email")
+                      ]),
                       onChanged: (value) {
                         email = value;
                       },
                       controller: emailController,
                       decoration: InputDecoration(
-                        hintText: 'Please enter your email here',
+                        contentPadding:
+                            const EdgeInsets.symmetric(horizontal: 3),
+                        hintText: ' Please enter your email here',
                         hintStyle: const TextStyle(
                           fontSize: 14.0,
                           fontWeight: FontWeight.w500,
@@ -167,9 +157,14 @@ class _TechnicalFormViewState extends State<TechnicalFormView> {
                     const SizedBox(height: 8.0),
                     DropdownButtonFormField(
                       isExpanded: true,
-                      onChanged: (String? value) {},
+                      validator: FormBuilderValidators.required(),
+                      onChanged: (String? value) {
+                        isseTopics = value!;
+                      },
                       decoration: InputDecoration(
-                        hintText: 'Select the issue topic',
+                        contentPadding:
+                            const EdgeInsets.symmetric(horizontal: 3),
+                        hintText: ' Select the issue topic',
                         hintStyle: const TextStyle(
                           fontSize: 14.0,
                           fontWeight: FontWeight.w500,
@@ -194,34 +189,17 @@ class _TechnicalFormViewState extends State<TechnicalFormView> {
                           child: Text(item),
                         );
                       }).toList(),
-                      validator: (index) {
-                        if (index == null || index.isEmpty) {
-                          return 'Please select an item';
-                        }
-                        return null;
-                      },
-                      onSaved: (newValue) {
-                        isseTopic = newValue ?? '';
-                      },
                     ),
                     const SizedBox(height: 16.0),
                     const SizedBox(height: 16),
                     const TextFieldTitle(title: 'Issue Description'),
                     TextFormField(
-                      validator: (value) {
-                        if (value == null || value.isEmpty) {
-                          return 'Please enter your Problem';
-                        }
-                        return null;
-                      },
-                      onChanged: (value) {
-                        isseTopicDesc = value;
-                      },
+                      validator: FormBuilderValidators.required(),
                       controller: issueDetailesController,
                       minLines: 5,
                       maxLines: 10,
                       decoration: InputDecoration(
-                        hintText: 'Please tell us about your problem',
+                        hintText: ' Please tell us about your problem',
                         hintStyle: const TextStyle(
                           fontSize: 14.0,
                           fontWeight: FontWeight.w500,
@@ -250,25 +228,28 @@ class _TechnicalFormViewState extends State<TechnicalFormView> {
                             shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(5))),
                         onPressed: () async {
-                          // =======       Send Data to API       ======= //
-                          final api = ref.read(apiProvider);
-                          final success = await api(
-                              nameController.text,
-                              emailController.text,
-                              isseTopic,
-                              issueDetailesController.text);
-                          ref.read(postStateProvider.notifier).state = success
-                              ? const AsyncValue<bool>.data(true)
-                              : const AsyncValue<bool>.error(
-                                  'Failed to post data');
-                          // ============ validator ============= //
-                          var formdata = formKey.currentState;
-
                           if (formKey.currentState!.validate()) {
-                            formdata?.save();
+                            // =======       Send Data to API       ======= //
+                            final api = ref.read(apiProvider);
+                            final success = await api(
+                                nameController.text,
+                                emailController.text,
+                                isseTopics,
+                                issueDetailesController.text);
+                            ref.read(postStateProvider.notifier).state = success
+                                ? const AsyncValue<bool>.data(true)
+                                : const AsyncValue<bool>.error(
+                                    'Failed to post data');
 
-                            var namePath = ref.watch(nameProvider);
-                            namePath = name;
+                            // ignore: use_build_context_synchronously
+                            ScaffoldMessenger.of(context).showSnackBar(
+                                const SnackBar(
+                                    backgroundColor: const Color(0xFF075995),
+                                    content: Center(
+                                        child: Text(
+                                            'Processing Data , Please Wait .....'))));
+                            String namePath = ref.watch(nameProvider);
+                            namePath = nameController.text;
                             // ignore: use_build_context_synchronously
                             Navigator.push(
                               context,
@@ -286,13 +267,17 @@ class _TechnicalFormViewState extends State<TechnicalFormView> {
                                 backgroundColor: const Color(0xFF075995),
                                 content: Center(
                                   child: Text(
-                                    ''' Hi  $name  Thank You Your Form Is Submited''',
+                                    ''' Hi  $namePath  Thank You Your Form Is Submited''',
                                     style: const TextStyle(color: Colors.white),
                                   ),
                                 ),
                               ),
                             );
+                          } else {
+                            // Form is not valid, but we can still save the data
+                            formKey.currentState?.save();
                           }
+                          // ============ validator ============= //
                         },
                         child: const Text(
                           'Submit',

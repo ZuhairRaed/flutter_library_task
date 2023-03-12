@@ -25,9 +25,9 @@ dependencies:
   confetti: ^0.7.0
   dio: ^4.0.6
   http: ^0.13.5
-  intl: ^0.18.0
   syncfusion_flutter_pdfviewer: ^20.4.53
   path_provider: ^2.0.13
+  form_builder_validators: ^8.5.0
 
 
 
