@@ -2,6 +2,7 @@ import 'dart:math';
 
 import 'package:confetti/confetti.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_library_task/screens/technical_form_screen.dart';
 
 class HomeScreen extends StatefulWidget {
   final String yourName;
@@ -34,6 +35,16 @@ class _HomeScreenState extends State<HomeScreen> {
         Scaffold(
             appBar: AppBar(
               title: const Text('Congratulations'),
+              leading: IconButton(
+                icon: const Icon(Icons.arrow_back_ios),
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => const TechnicalFormView()),
+                  );
+                },
+              ),
             ),
             body: Padding(
               padding: const EdgeInsets.all(16.0),

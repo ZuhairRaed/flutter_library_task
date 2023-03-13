@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_library_task/variabels/library.dart';
 import 'package:flutter_library_task/widgets/text_field_title.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:http/http.dart' as http;
 import 'home_screen.dart';
 import 'package:form_builder_validators/form_builder_validators.dart';
+
+import 'library_screen.dart';
 
 class TechnicalFormView extends StatefulWidget {
   const TechnicalFormView({super.key});
@@ -63,10 +66,10 @@ class _TechnicalFormViewState extends State<TechnicalFormView> {
         ),
         leading: IconButton(
           onPressed: () {
-            Navigator.pop(context);
-            setState(() {
-              isSending = false;
-            });
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => const LibraryScreen()),
+            );
           },
           icon: const Icon(Icons.arrow_back),
         ),
