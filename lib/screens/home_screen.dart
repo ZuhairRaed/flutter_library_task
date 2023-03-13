@@ -2,6 +2,7 @@ import 'dart:math';
 
 import 'package:confetti/confetti.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_library_task/screens/library_screen.dart';
 import 'package:flutter_library_task/screens/technical_form_screen.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -41,7 +42,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                        builder: (context) => const TechnicalFormView()),
+                        builder: (context) => const LibraryScreen()),
                   );
                 },
               ),

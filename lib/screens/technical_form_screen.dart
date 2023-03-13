@@ -26,25 +26,31 @@ class _TechnicalFormViewState extends State<TechnicalFormView> {
   String isseTopicDesc = '';
   //  ==== List of items === //
   List<String> items = [
-    '1. Incorrect billing or payment amount',
-    '2. Broken hyperlink or 404 error messagea',
-    '3. Login credentials not reconized or forgotten',
-    '4. Slow website loading or server timeouts',
-    '5. Unable to access specific website featuers or functionality',
+    ' Incorrect billing or payment amount',
+    ' Broken hyperlink or 404 error messagea',
+    ' Login credentials not reconized or forgotten',
+    ' Slow website loading or server timeouts',
+    ' Unable to access specific website featuers or functionality',
   ];
 
   // ==============        API TO POST IN HTTP      =============== //
   final apiProvider = Provider((ref) => (String name, String email,
           String issueTopic, String issueDescription) async {
-        final response = await http.post(
-            Uri.parse('https://development.himam.com/api/technical-support'),
+        try {
+          final response = await http.post(
+            Uri.parse("https://development.himam.com/api/technical-support"),
             body: {
               'name': name,
               'email': email,
               'issueTopic': issueTopic,
               'issueDescription': issueDescription,
-            });
-        return response.statusCode == 200;
+            },
+          );
+          return true;
+        } catch (e) {
+          print('Error occurred while making API call: $e');
+          return false;
+        }
       });
   // ======== Providers ======= //
   final postStateProvider =
@@ -242,35 +248,46 @@ class _TechnicalFormViewState extends State<TechnicalFormView> {
                                   setState(() {
                                     isSending = true;
                                   });
-                                  final api = ref.read(apiProvider);
-                                  bool success = await api(
-                                      nameController.text,
-                                      emailController.text,
-                                      isseTopics,
-                                      issueDetailesController.text);
-                                  ref.read(postStateProvider.notifier).state =
-                                      success
-                                          ? const AsyncValue<bool>.data(true)
-                                          : const AsyncValue<bool>.error(
-                                              'Failed to post data');
 
-                                  // ignore: use_build_context_synchronously
-                                  ScaffoldMessenger.of(context).showSnackBar(
+                                  final api = ref.read(apiProvider);
+                                  api(
+                                    nameController.text,
+                                    emailController.text,
+                                    isseTopics,
+                                    issueDetailesController.text,
+                                  ).then((value) {
+                                    ref.read(postStateProvider.notifier).state =
+                                        value
+                                            ? const AsyncValue<bool>.data(true)
+                                            : const AsyncValue<bool>.error(
+                                                'Failed to post data');
+
+                                    ScaffoldMessenger.of(context).showSnackBar(
                                       const SnackBar(
-                                          backgroundColor: Color(0xFF075995),
-                                          content: Center(
-                                              child: Text(
-                                                  "Your From Is Submitted"))));
-                                  String namePath = ref.watch(nameProvider);
-                                  namePath = nameController.text;
-                                  // ignore: use_build_context_synchronously
-                                  Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
+                                        backgroundColor: Color(0xFF075995),
+                                        content: Center(
+                                            child:
+                                                Text("Your From Is Submitted")),
+                                      ),
+                                    );
+                                    String namePath = ref.watch(nameProvider);
+                                    namePath = nameController.text;
+                                    Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
                                         builder: (_) => HomeScreen(
-                                              yourName: namePath,
-                                            )),
-                                  );
+                                          yourName: namePath,
+                                        ),
+                                      ),
+                                    );
+                                  }).catchError((error) {
+                                    print(
+                                        'Error occurred while making API call: $error');
+                                    ref.read(postStateProvider.notifier).state =
+                                        const AsyncValue<bool>.error(
+                                            'Failed to post data');
+                                  });
+
                                   // ============= SnakBar To Notify The User That The Data Sended ========== //
                                 } else {
                                   formKey.currentState?.save();
